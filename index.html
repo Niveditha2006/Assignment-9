@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let rev = 0;
+        function reverse(){
+            let n = 32243;
+            do{
+                rev = n%10 + rev*10;
+                n = Math.floor(n/10);
+            }while(n>0);
+        }
+        reverse();
+        console.log("Reverse of the given number is : ", rev);
+    </script>
+</body>
+</html>

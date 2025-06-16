@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Password Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #2c2b2b;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: #101717;
+      padding: 30px;
+      border-radius: 20px;
+      color: white;
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    h2 {
+      background: #eee;
+      color: black;
+      padding: 10px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      margin-bottom: 10px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin-left: 10px;
+      border: none;
+      background: white;
+      color: black;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .options {
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .slider {
+      width: 100%;
+    }
+
+    label {
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Password - Generator</h2>
+    <input type="text" id="password" readonly placeholder="Your Password">
+    <button onclick="copyPassword()">Copy</button>
+
+    <div class="options">
+      <input type="range" min="4" max="30" value="12" id="lengthRange" class="slider" oninput="updateLength()">
+      <label id="lengthLabel">Length: 12</label><br><br>
+
+      <input type="checkbox" id="includeLetters" checked>
+      <label for="includeLetters">Characters</label><br>
+
+      <input type="checkbox" id="includeNumbers" checked>
+      <label for="includeNumbers">Numbers</label>
+    </div>
+
+    <br>
+    <button onclick="generatePassword()">Generate Password</button>
+  </div>
+
+  <script>
+    function updateLength() {
+      const length = document.getElementById("lengthRange").value;
+      document.getElementById("lengthLabel").textContent = "Length: " + length;
+    }
+
+    function generatePassword() {
+      const length = document.getElementById("lengthRange").value;
+      const includeLetters = document.getElementById("includeLetters").checked;
+      const includeNumbers = document.getElementById("includeNumbers").checked;
+
+      let characters = "";
+      if (includeLetters) characters += "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+?";
+      if (includeNumbers) characters += "0123456789";
+
+      let password = "";
+      for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        password += characters[randomIndex];
+      }
+
+      document.getElementById("password").value = password;
+    }
+
+    function copyPassword() {
+      const passwordField = document.getElementById("password");
+      passwordField.select();
+      document.execCommand("copy");
+      alert("Password copied to clipboard!");
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Project Request Form</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f8f9fa;
+      padding: 20px;
+    }
+    form {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin: auto;
+    }
+    .form-group {
+      margin-bottom: 10px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .radio-group label {
+      margin-right: 10px;
+    }
+    .error {
+      color: red;
+      font-size: 12px;
+    }
+    button {
+      background: orange;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <form onsubmit="return validateForm()">
+    <div class="form-group">
+      <label>First Name</label>
+      <input type="text" id="firstName" placeholder="First Name">
+      <div class="error" id="firstNameError"></div>
+    </div>
+
+    <div class="form-group">
+      <label>Last Name</label>
+      <input type="text" id="lastName" placeholder="Last Name">
+      <div class="error" id="lastNameError"></div>
+    </div>
+
+    <div class="form-group">
+      <label>E-Mail</label>
+      <input type="email" id="email" placeholder="E-Mail Address">
+      <div class="error" id="emailError"></div>
+    </div>
+
+    <div class="form-group">
+      <label>Phone #</label>
+      <input type="text" id="phone" placeholder="(845)555-1212">
+      <div class="error" id="phoneError"></div>
+    </div>
+
+    <div class="form-group">
+      <label>Address</label>
+      <input type="text" id="address" placeholder="Address">
+      <div class="error" id="addressError"></div>
+    </div>
+
+    <div class="form-group">
+      <label>City</label>
+      <input type="text" id="city" placeholder="City">
+      <div class="error" id="cityError"></div>
+    </div>
+
+    <div class="form-group">
+      <label>State</label>
+      <select id="state">
+        <option value="">Please select your state</option>
+        <option value="AP">Andhra Pradesh</option>
+        <option value="MH">Maharashtra</option>
+        <option value="TN">Tamil Nadu</option>
+        <option value="KA">Karnataka</option>
+      </select>
+      <div class="error" id="stateError"></div>
+    </div>
+
+    <div class="form-group">
+      <label>Do you have hosting?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="hosting" value="yes"> Yes</label>
+        <label><input type="radio" name="hosting" value="no"> No</label>
+      </div>
+      <div class="error" id="hostingError"></div>
+    </div>
+
+    <div class="form-group">
+      <label>Project Description</label>
+      <textarea id="description" rows="3" placeholder="Project Description"></textarea>
+      <div class="error" id="descriptionError"></div>
+    </div>
+
+    <button type="submit">Send</button>
+  </form>
+
+  <script>
+    function validateForm() {
+      let valid = true;
+
+      document.querySelectorAll(".error").forEach(el => el.textContent = "");
+
+      const check = (id, msg) => {
+        const val = document.getElementById(id).value.trim();
+        if (!val) {
+          document.getElementById(id + "Error").textContent = msg;
+          valid = false;
+        }
+      };
+
+      check("firstName", "Please enter first name");
+      check("lastName", "Please enter last name");
+      check("email", "Please enter email");
+      check("phone", "Please enter phone number");
+      check("address", "Please enter address");
+      check("city", "Please enter city");
+      check("state", "Please select your state");
+      check("description", "Please enter project description");
+
+      const hosting = document.querySelector('input[name="hosting"]:checked');
+      if (!hosting) {
+        document.getElementById("hostingError").textContent = "Please select hosting option";
+        valid = false;
+      }
+
+      return valid;
+    }
+  </script>
+
+</body>
+</html>
+
